@@ -1,0 +1,59 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.BlueButton {
+    border: 0;
+    background: #00aced;
+    color: white;
+    padding: 11px 20px;
+    line-height: 18px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    text-decoration: none;
+    position: relative;
+    margin-bottom: 40px;
+    width: 270px;
+    box-sizing: border-box
+}
+
+.GreenButton {
+    border: 0;
+    background: #00C300;
+    color: white;
+    padding: 11px 20px;
+    line-height: 18px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    text-decoration: none;
+    position: relative;
+    margin-bottom: 40px;
+    width: 270px;
+    box-sizing: border-box
+}
+
+.BlueButton:active,
+.GreenButton:active {
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))
+}

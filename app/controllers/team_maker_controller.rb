@@ -3,6 +3,7 @@ class TeamMakerController < ApplicationController
   end
 
   def make
+    @room = Room.new
   end
 
   def join

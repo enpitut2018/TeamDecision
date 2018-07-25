@@ -1,0 +1,2 @@
+class Paramater < ApplicationRecord
+end

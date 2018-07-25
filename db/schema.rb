@@ -10,11 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180725043908) do
+=======
+ActiveRecord::Schema.define(version: 20180725100001) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
+=======
+  create_table "answers", force: :cascade do |t|
+    t.integer "Aid"
+    t.integer "Pid"
+    t.integer "Uid"
+    t.integer "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "paramaters", force: :cascade do |t|
+    t.integer "Rid"
+    t.string "Pname"
+    t.integer "key"
+    t.integer "format"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+>>>>>>> master
   create_table "rooms", force: :cascade do |t|
     t.string "Rchar"
     t.string "Rname"
@@ -24,9 +49,26 @@ ActiveRecord::Schema.define(version: 20180725043908) do
 
   create_table "teams", force: :cascade do |t|
     t.integer "Rid"
+<<<<<<< HEAD
+=======
+    t.integer "Tid"
+>>>>>>> master
     t.string "Tname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.integer "Rid"
+    t.string "name"
+    t.string "email"
+    t.integer "key"
+    t.integer "Tid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+>>>>>>> master
 end

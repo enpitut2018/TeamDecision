@@ -1,0 +1,13 @@
+<script>
+document.getElementById("subtitle").innerHTML = "ルーム作成"
+</script>
+<br>
+<span style="text-align:center">
+<%= form_for @room, html: {class:"form-horizontal"},:url => {} do |f| %>
+  <%= f.label :Rname, "Room name" %>
+  <%= f.text_field :Rname %>
+  <br>
+  <br>
+  <%= f.submit "Create room", class: "BlueButton" %>
+<% end %>
+</span>

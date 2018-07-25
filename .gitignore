@@ -20,5 +20,8 @@
 .env
 config-database.yml
 config/database.yml
+<<<<<<< HEAD
 config-database.yml
 config-database.yml
+=======
+>>>>>>> room

@@ -1,2 +1,15 @@
-<h1>TeamMaker#make</h1>
-<p>Find me in app/views/team_maker/make.html.erb</p>
+<script>
+document.getElementById("subtitle").innerHTML = "ルーム"
+</script>
+<table>
+  <tr>
+    <th>Rname</th><td><%= @room.Rname %></td>
+  </tr>
+  <tr>
+    <th>Rchar</th><td><%= @room.Rchar %></td>
+  </tr>
+
+</table>
+パラメータ
+<br>
+<%= link_to "新規作成", {:action => "AddParams"},{class: "BlueButton"}%>

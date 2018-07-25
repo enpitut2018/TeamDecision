@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 20180725014224) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-=======
   create_table "rooms", force: :cascade do |t|
     t.string "Rchar"
     t.string "Rname"
@@ -43,7 +41,6 @@ ActiveRecord::Schema.define(version: 20180725014224) do
     t.datetime "updated_at", null: false
   end
 
->>>>>>> room
   create_table "teams", force: :cascade do |t|
     t.integer "Rid"
     t.integer "Tid"

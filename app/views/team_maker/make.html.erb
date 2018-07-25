@@ -1,6 +1,7 @@
 <script>
 document.getElementById("subtitle").innerHTML = "ルーム"
 </script>
+<span style="text-align:center">
 <table>
   <tr>
     <th>Rname</th><td><%= @room.Rname %></td>
@@ -13,3 +14,4 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 パラメータ
 <br>
 <%= link_to "新規作成", {:action => "AddParams"},{class: "BlueButton"}%>
+</span>

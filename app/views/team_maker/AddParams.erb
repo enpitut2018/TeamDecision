@@ -1,4 +1,23 @@
 <script>
 document.getElementById("subtitle").innerHTML = "ルーム作成"
+
+<%=
+scr = ""
+if session[:rid]==nil then
+    scr = 'location.href = "/" '
+end
+scr.html_safe
+%>
 </script>
-<p>Find me in app/views/team_maker/join.html.erb</p>
+<span style="text-align:center"><br>
+<%= form_tag("newparam/", method: "post") do %>
+    <%= label_tag(:q, "パラメータ名:") %>
+    <%= text_field_tag(:name) %>
+    <br>
+    選択肢の数：
+    <%= select_tag 'format', options_for_select(['2','3','4','5'])%> 
+    <br>
+    <br>
+    <%= submit_tag("追加") %>
+  <% end %>
+  </span>

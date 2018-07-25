@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725014224) do
+ActiveRecord::Schema.define(version: 20180725100001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20180725014224) do
 
   create_table "paramaters", force: :cascade do |t|
     t.integer "Rid"
-    t.integer "Pid"
     t.string "Pname"
     t.integer "key"
     t.integer "format"

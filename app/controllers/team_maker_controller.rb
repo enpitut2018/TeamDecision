@@ -1,4 +1,5 @@
 class TeamMakerController < ApplicationController
+  protect_from_forgery except: :newparam
   def home
   end
 
@@ -6,12 +7,13 @@ class TeamMakerController < ApplicationController
     @room = Room.new
     @room.Rname = params[:room][:Rname]
     @room.Rchar = make_Rchar
+    
     if @room.save
       @result = true
     else
       @result = false
     end
-
+    session[:rid]=@room.id
   end
 
   def make_Rchar
@@ -53,6 +55,13 @@ class TeamMakerController < ApplicationController
       @rooms+='</td></tr>'
     end
 
+  end
+
+  def newparam
+    @param = Paramater.new
+    @param.Pname = params[:name]
+    @param.format = params[:format]
+    @param.pid = session[:rid]
   end
 
 end

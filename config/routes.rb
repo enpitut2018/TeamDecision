@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
   get 'team_maker/result'
 
+  get 'team_maker/show_rooms'
+
   root 'application#hello'
 end

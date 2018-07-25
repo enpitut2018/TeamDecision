@@ -34,4 +34,17 @@ class TeamMakerController < ApplicationController
 
   def result
   end
+
+  def show_rooms
+    @rooms = ''
+    for r in Room.all do
+      @rooms+='<tr><td>'
+      @rooms+=r.Rname
+      @rooms+='</td><td>'
+      @rooms+=r.Rchar
+      @rooms+='</td></tr>'
+    end
+
+  end
+
 end

@@ -10,14 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725013108) do
+ActiveRecord::Schema.define(version: 20180725014224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "answers", force: :cascade do |t|
+    t.integer "Aid"
+    t.integer "Pid"
+    t.integer "Uid"
+    t.integer "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "paramaters", force: :cascade do |t|
+    t.integer "Rid"
+    t.integer "Pid"
+    t.string "Pname"
+    t.integer "key"
+    t.integer "format"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "Rchar"
     t.string "Rname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.integer "Rid"
+    t.integer "Tid"
+    t.string "Tname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.integer "Rid"
+    t.string "name"
+    t.string "email"
+    t.integer "key"
+    t.integer "Tid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

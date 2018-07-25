@@ -15,7 +15,13 @@ class TeamMakerController < ApplicationController
   end
 
   def make_Rchar
-    return "sample string"
+    tmp = (0...8).map{ ('A'..'Z').to_a[rand(26)] }.join;
+    flg = Room.find_by(Rchar:tmp)
+    while flg!=nil do
+      tmp = (0...8).map{ ('A'..'Z').to_a[rand(26)] }.join
+      flg = Room.find_by(Rchar:tmp)
+    end
+    return tmp
   end
 
   def create_room

@@ -7,5 +7,5 @@ Rails.application.routes.draw do
 
   get 'team_maker/result'
 
-  root 'application#hello'
+  root 'team_maker#result'
 end

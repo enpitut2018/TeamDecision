@@ -36,10 +36,17 @@ class TeamMakerController < ApplicationController
 
   def join
     #ユーザーテーブルにinsert
-    user = User.new(Rid:1, name:"ABC", email:"test@test.com")
-    user.save
-
-    render html: "ユーザを登録しました Your id = #{user.id}"
+    @Pout = "" # brank
+    @Rid = params[:Rid]
+    if @Rid =~ /^[0-9]+$/ then
+      # @Pout += "int"
+      user = User.new(Rid:@Rid, name:"ABC", email:"test@test.com")
+      user.save
+      @Pout += "ユーザを登録しました Your id = #{user.id}, Rid=#{user.Rid}"
+    else
+      @Pout += "URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"      
+    end
+    # render html: @Pout
   end
 
   def result

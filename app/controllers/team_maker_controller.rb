@@ -44,7 +44,7 @@ class TeamMakerController < ApplicationController
     else
       @Pout += "URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"      
     end
-    render html: @Pout
+    # render html: @Pout
   end
 
   def result

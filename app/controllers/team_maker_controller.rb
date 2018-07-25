@@ -68,7 +68,7 @@ class TeamMakerController < ApplicationController
     @param = Paramater.new
     @param.Pname = params[:name]
     @param.format = params[:format]
-    @param.rid = session[:rid]
+    @param.Rid = session[:rid]
     if @param.save
       @result = true
     else

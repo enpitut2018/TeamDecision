@@ -9,15 +9,11 @@ Rails.application.routes.draw do
 
   get 'team_maker/result'
 
-<<<<<<< HEAD
   root 'team_maker#home'
-=======
+
   get 'team_maker/AddParams',to:"team_maker#AddParams"
 
   get 'team_maker/show_rooms'
 
-  root 'application#hello'
 
-
->>>>>>> room
 end

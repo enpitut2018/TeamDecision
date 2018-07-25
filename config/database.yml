@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   host: 127.0.0.1
   username: postgres
-  password: <%= ENV['POSTGRESQL_DATABASE_PASSWORD'] %>
+  password: enpitTESTpassword
   pool: 5
 
 development:

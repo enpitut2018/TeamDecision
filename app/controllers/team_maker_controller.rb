@@ -14,6 +14,8 @@ class TeamMakerController < ApplicationController
       @result = false
     end
     session[:rid]=@room.id
+    session[:Rname]=@room.Rname
+    session[:Rchar]=@room.Rchar
   end
 
   def make_Rchar
@@ -74,6 +76,8 @@ class TeamMakerController < ApplicationController
     else
       @result = false
     end
+  end
+  def room
   end
   
 

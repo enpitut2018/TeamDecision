@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   get 'team_maker/show_rooms'
 
+  get 'team_maker/room'
+
 
 end

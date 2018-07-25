@@ -1,7 +1,10 @@
-<h1>Create new room</h1>
-<%= form_for @room, :url => {:make => :home} do |f| %>
-  <%= f.label :Rname, "Room name" %>
-  <%= f.text_field :Rname %>
-  <br />
-  <%= f.submit "Create room", class: "BlueButton" %>
-<% end %>
+<h1>Room created</h1>
+
+<table>
+  <tr>
+    <th>Rname</th><td><%= @room.Rname %></td>
+  </tr>
+  <tr>
+    <th>Rchar</th><td><%= @room.Rchar %></td>
+  </tr>
+</table>

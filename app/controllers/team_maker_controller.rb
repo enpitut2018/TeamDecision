@@ -4,6 +4,23 @@ class TeamMakerController < ApplicationController
 
   def make
     @room = Room.new
+    @room.Rname = params[:room][:Rname]
+    @room.Rchar = make_Rchar
+    if @room.save
+      @result = true
+    else
+      @result = false
+    end
+
+  end
+
+  def make_Rchar
+    return "sample string"
+  end
+
+  def create_room
+    @room = Room.new
+    @room.Rname = "my_room"
   end
 
   def join

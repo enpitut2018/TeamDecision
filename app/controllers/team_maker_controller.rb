@@ -62,11 +62,12 @@ class TeamMakerController < ApplicationController
     @param.Pname = params[:name]
     @param.format = params[:format]
     @param.rid = session[:rid]
+    if @param.save
+      @result = true
+    else
+      @result = false
+    end
   end
-  if @room.save
-    @result = true
-  else
-    @result = false
-  end
+  
 
 end

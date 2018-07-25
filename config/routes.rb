@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'team_maker/home'
 
-  get 'team_maker/make'
+  post 'team_maker/create_room', to:"team_maker#make"
+
+  get 'team_maker/create_room'
 
   get 'team_maker/join'
 

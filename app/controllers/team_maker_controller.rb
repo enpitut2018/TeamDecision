@@ -23,10 +23,13 @@ class TeamMakerController < ApplicationController
     end
     return tmp
   end
+  def AddParams
+    logger.debug("AddParamsの中に入りました")
+  end
 
   def create_room
     @room = Room.new
-    @room.Rname = "my_room"
+    @room.Rname = "ルーム名"
   end
 
   def join

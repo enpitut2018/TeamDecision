@@ -1,5 +1,6 @@
-<h1>Room created</h1>
-
+<script>
+document.getElementById("subtitle").innerHTML = "ルーム"
+</script>
 <table>
   <tr>
     <th>Rname</th><td><%= @room.Rname %></td>
@@ -7,4 +8,8 @@
   <tr>
     <th>Rchar</th><td><%= @room.Rchar %></td>
   </tr>
+
 </table>
+パラメータ
+<br>
+<%= link_to "新規作成", {:action => "AddParams"},{class: "BlueButton"}%>

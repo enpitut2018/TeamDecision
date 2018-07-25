@@ -9,6 +9,8 @@ class TeamMakerController < ApplicationController
     #ユーザーテーブルにinsert
     user = User.new(Rid:1, name:"ABC", email:"test@test.com")
     user.save
+
+    render html: "ユーザを登録しました Your id = #{user.id}"
   end
 
   def result

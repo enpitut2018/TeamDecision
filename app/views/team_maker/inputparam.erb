@@ -1,0 +1,99 @@
+<script>
+document.getElementById("subtitle").innerHTML = "回答入力"
+</script>
+
+<p style="text-align:center">
+<%=
+para = 5
+pid = @param[:pid] 
+para =Paramater.find_by(id:pid)[:Pname]
+%>
+</p>
+<%= form_for @answer ,:url => {:action => :SetParam}  do |form| %>
+   
+    <%= hidden_field_tag 'answer[pid]',@param[:pid] %>
+<table>
+<tr>
+
+　　<th>　そう思う　</th>
+<%= 
+
+    if para == 5 || para == 4 then
+        "<th>　どちらかというとそう思う　</th>".html_safe
+    end
+    %>   
+    <%= 
+    if para == 3 || para == 5 then
+        "<th>　どちらとも言えない　</th>".html_safe
+    end
+    %> 
+    <%= 
+    if para == 5 || para == 4 then
+        "<th>　あまり思わない　</th>".html_safe
+    end
+
+    %>
+    <th>　そう思わない　</th>　
+　</tr>
+　<tr>
+　　<td style ="text-align:center"><%= form.radio_button :answer, "2" %></td>
+　　
+    <%=
+    if para == 5 || para == 4 then
+    '<td style ="text-align:center">'.html_safe
+    end
+    %>
+    
+    <%= if para == 5 || para == 4 then
+        form.radio_button :answer, "1" 
+    end    
+    %>
+    <%=
+    if para == 5 || para == 4 then
+    '</td>'.html_safe
+    end
+    %>
+
+    <%=
+    if para == 3 || para == 5 then
+    '<td style ="text-align:center">'.html_safe
+    end
+    %>
+    
+    <%= if para == 3 || para == 5 then
+        form.radio_button :answer, "0" 
+    end    
+    %>
+    <%=
+    if para == 3 || para == 5 then
+        '</td>'.html_safe
+    end
+    %>
+　  
+    
+    
+    
+    
+    <%=
+    if para == 5 || para == 4 then
+    '<td style ="text-align:center">'.html_safe
+    end
+    %>
+    
+    <%= if para == 5 || para == 4 then
+        form.radio_button :answer, "-1" 
+    end    
+    %>
+    <%=
+    if para == 5 || para == 4 then
+    '</td>'.html_safe
+    end
+    %>
+    
+    <td style ="text-align:center"><%= form.radio_button :answer, "-2" %></td>
+　　
+　</tr>
+
+</table><br>
+<%= form.submit "回答する", class: "BlueButton" %>
+<% end %>

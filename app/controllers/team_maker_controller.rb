@@ -28,6 +28,7 @@ class TeamMakerController < ApplicationController
     end
     return tmp
   end
+
   def AddParams
     logger.debug("AddParamsの中に入りました")
   end
@@ -106,5 +107,9 @@ class TeamMakerController < ApplicationController
     end
   end
 
+  def divideIntoTeams
+    make_team
+    redirect_to "/team_maker/result"
+  end
 
 end

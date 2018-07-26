@@ -6,6 +6,9 @@ document.getElementById("subtitle").innerHTML = "回答入力"
 <%=
 para = 5
 pid = @param[:pid] 
+pn =Paramater.find_by(id:pid)[:Pname]
+%>
+<%
 para =Paramater.find_by(id:pid)[:format]
 %>
 </p>

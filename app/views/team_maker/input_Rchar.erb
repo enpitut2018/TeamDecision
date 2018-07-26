@@ -4,13 +4,13 @@ document.getElementById("subtitle").innerHTML = "ルームに参加"
 <br>
 <span style="text-align:center">
 <%= form_for @room, html: {class:"form-horizontal"},:url => {} do |f| %>
-  <%= f.label :name, "ユーザー名" %>
+  <%= f.label :name, "名前（ユーザー名）" %>
   <%= f.text_field :name %>
   <br>
   <%= f.label :email, "メールアドレス" %>
   <%= f.text_field :email %>
   <br>
-  <%= f.label :Rchar, "入室コード" %>
+  <%= f.label :Rchar, "入室コード（Rchar）" %>
   <%= f.text_field :Rchar %>
   <br>
   <br>

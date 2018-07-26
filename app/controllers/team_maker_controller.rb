@@ -55,6 +55,7 @@ class TeamMakerController < ApplicationController
   end
 
   def result
+    make_team
   end
 
   def show_rooms
@@ -80,7 +81,17 @@ class TeamMakerController < ApplicationController
       @result = false
     end
   end
-  def room
+
+  def make_team
+    # 分けたいチームの数（分割数）
+    teamNum = 2
+    for i in User.all.each_slice(User.all.length / teamNum) do
+      team = Team.create(Rid:1)
+      i.each {|u|
+        u.Tid = team.id
+        u.save
+      }
+    end
   end
 
 

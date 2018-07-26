@@ -1,2 +1,15 @@
 <h1>結果</h1>
 <p>あなたはグループ１です</p>
+<table>
+  <tr>
+    <th>Team id</th>
+    <th>User id</th>
+  </tr>
+
+  <% User.all.each do |u| %>
+    <tr>
+      <td><%= u.Tid %></td>
+      <td><%= u.id %></td>
+    </tr>
+  <% end %>
+</table>

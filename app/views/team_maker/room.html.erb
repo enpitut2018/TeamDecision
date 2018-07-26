@@ -1,0 +1,21 @@
+<script>
+document.getElementById("subtitle").innerHTML = "ルーム"
+</script>
+<span style="text-align:center">
+<table>
+  <tr>
+    <th>Rname</th><td><%= session[:Rname] %></td>
+  </tr>
+  <tr>
+    <th>Rchar</th><td><%= session[:Rchar] %></td>
+  </tr>
+
+</table>
+パラメータ
+<br>
+<%= 
+    Paramater.where(Rid: session[:rid])
+%>
+<%= link_to "新規作成", {:action => "AddParams"},{class: "BlueButton"}%>
+</span>
+

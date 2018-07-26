@@ -14,6 +14,8 @@ class TeamMakerController < ApplicationController
       @result = false
     end
     session[:rid]=@room.id
+    session[:Rname]=@room.Rname
+    session[:Rchar]=@room.Rchar
   end
 
   def make_Rchar
@@ -34,17 +36,20 @@ class TeamMakerController < ApplicationController
     @room.Rname = "ルーム名"
   end
 
+  def input_Rchar
+    @room = Join_room.new
+  end
+
   def join
     #ユーザーテーブルにinsert
     @Pout = "" # brank
-    @Rid = params[:Rid]
-    if @Rid =~ /^[0-9]+$/ then
-      # @Pout += "int"
-      user = User.new(Rid:@Rid, name:"ABC", email:"test@test.com")
+    room = Room.find_by(Rchar:params[:join_room][:Rchar])
+    if room != nil then
+      user = User.new(Rid:room[:id], name:params[:join_room][:name], email:params[:join_room][:email])
       user.save
-      @Pout += "ユーザを登録しました Your id = #{user.id}, Rid=#{user.Rid}"
+      @Pout += "ユーザを登録しました Your id = #{user.id}, Rid=#{user.Rid}, Rname=#{room.Rname}"
     else
-      @Pout += "URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"
+      @Pout+="入室コードが間違っています<br/><a href='join'>再入力</a>"#"URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"
     end
     # render html: @Pout
   end

@@ -90,7 +90,7 @@ class TeamMakerController < ApplicationController
     #チーム分け対象
     users = User.all
 
-    if decide_num_of_members do
+    if decide_num_of_members
       teamNum = users.length/teamNum
     end
 

@@ -75,7 +75,7 @@ class TeamMakerController < ApplicationController
       @Pout += par0[:Pname].to_s
       @Pout += "</a><br>"
     }
-    @Pout += </p>
+    @Pout += "</p>"
    
     
   end

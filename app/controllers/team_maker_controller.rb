@@ -47,37 +47,80 @@ class TeamMakerController < ApplicationController
   end
 
   def join
-    
+    @Pout = ""
+    p TCPSocket.gethostbyname("www.yahoo.co.jp")
     puts params
     if session[:uid]!=nil && session[:u_rid]!=nil then
       user = User.find_by(id:session[:uid],Rid:session[:u_rid])
     else
       r = Room.find_by(Rchar:params[:join_room][:Rchar])
-      if r != nil then 
-        
+      if r != nil then
       else
         #部屋コードが不正な場合ここに来る
       end
-      rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
-      user = User.new(Rid:rid, name:params[:join_room][:name], email:params[:join_room][:email])
-      user.save
-      session[:uid] = user.id;
-      session[:u_rid] = user.Rid;
       
+      # メールアドレスの存在可能性検証（処理の定義）
+      require 'resolv'
+      extend ActiveSupport::Concern
+      @MY_DOMAIN = 'sv.teammaker.gv.vc'.freeze
+      @TIMEOUT = 20
+      def mail_check(addr)
+        domain = addr.split('@')[1]
+        return { exist: false, valid: true, message: 'SMTP Server Not Found' } unless get_exchange(domain)
+        begin
+          addrs_exist?(get_exchange(domain), addr)
+        rescue
+          return { exist: false, valid: true, message: "Unknown Error.(Maybe #{@addr} Does Not Exists.)" }
+        end
+      end
+      def get_exchange(domain)
+        begin
+          @mx = Resolv::DNS.new.getresource(domain, Resolv::DNS::Resource::IN::MX)
+        rescue
+          return nil
+        end
+        @mx.exchange.to_s
+      end
+      def addrs_exist?(domain, addr)
+        @MC_status = ''
+        pop = Net::Telnet.new('Host' => domain, 'Port' => 25, 'Timeout' => @TIMEOUT, 'Prompt' => /^(2\d{2}|5\d{2})/)
+        pop.cmd("helo #{@MY_DOMAIN}")
+        pop.cmd("mail from:<#{mail_address}>")  #mail_addressには送信元のメールアドレスを入れる
+        pop.cmd("rcpt to:<#{addr}>") { |c| @MC_status << c }
+        pop.cmd('String' => 'quit')
+        @MC_status =~ /^250/ ? true : false
+      end
+
+      @email = params[:join_room][:email]
+
+      # メールアドレスの存在可能性検証（確認実行）
+      mail_check( @email )
+
+      # @Pout += @email
+      if @MC_status then
+        # メールアドレスが正しい場合
+        rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
+        #ユーザーテーブルにinsert
+        user = User.new(Rid:rid, name:params[:join_room][:name], email:@email)
+        user.save
+        session[:uid] = user.id;
+        session[:u_rid] = user.Rid;
+        @Pout += "ルームに参加しました<br>\n<br>\n"
+        #@Pout += "Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
+      else
+        @Pout += "メールアドレスの検証に失敗しました。<br>
+        正しいメールアドレスを入力しているか、今一度ご確認ください。"
+      end
     end
-  
-    #ユーザーテーブルにinsert
-    @Pout = "<p align='center'>" # brank
-    #@Pout += "Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
     par=Paramater.where(Rid: session[:u_rid])
     par.each {|par0|
       @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
       @Pout += par0[:Pname].to_s
       @Pout += "</a><br>"
     }
+    # 画面表示を生成
+    @Pout = "<p align='center'>" + @Pout
     @Pout += "</p>"
-   
-    
   end
 
   def result
@@ -129,7 +172,6 @@ class TeamMakerController < ApplicationController
 
 
   def InputParam
-    
     @answer = Answer.new
     @param = params
     render("inputparam")

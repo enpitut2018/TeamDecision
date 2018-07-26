@@ -9,7 +9,7 @@ document.getElementById("subtitle").innerHTML = "グループ分け結果"
     <th>Email</th>
   </tr>
 
-  <% User.where(Rid: session[:rid]).each do |u| %>
+  <% User.where(Rid: session[:u_rid]).each do |u| %>
     <tr>
       <td><%= u.Tid %></td>
       <td><%= u.id %></td>

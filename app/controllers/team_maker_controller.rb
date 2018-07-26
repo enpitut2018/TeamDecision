@@ -28,7 +28,6 @@ class TeamMakerController < ApplicationController
     end
     return tmp
   end
-
   def AddParams
     logger.debug("AddParamsの中に入りました")
   end
@@ -39,31 +38,38 @@ class TeamMakerController < ApplicationController
   end
 
   def input_Rchar
-    @room = Join_room.new
+    if session[:uid]!=nil && session[:u_rid]!=nil then
+      join
+      render :action => "join"
+    else
+      @room = Join_room.new
+    end
   end
 
   def join
+    
+    puts params
+    if session[:uid]!=nil && session[:u_rid]!=nil then
+      user = User.find_by(id:session[:uid],Rid:session[:u_rid])
+    else
+      r = Room.find_by(Rchar:params[:join_room][:Rchar])
+      if r != nil then 
+        rid = r[:id]
+      else
+        #部屋コードが不正な場合ここに来る
+      end
+      user = User.new(Rid:rid, name:params[:join_room][:name], email:params[:join_room][:email])
+      user.save
+      session[:uid] = user.id;
+      session[:u_rid] = user.Rid;
+      
+    end
+  
     #ユーザーテーブルにinsert
     @Pout = "" # brank
-    @Uid = session[:Uid]
-    if @Uid =~ /^[0-9]+$/ then
-      @Pout += "Done"
-    else
-      @Rid = params[:Rid]
-      if @Rid =~ /^[0-9]+$/ then
-        # @Pout += "int"
-      else
-        @Pout += "【警告！】URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。<br>
-        Rid=1であるものとして処理を継続します。<br>
-        <br>
-        "
-        @Rid = 1
-      end
-      user = User.new(Rid:@Rid, name:"ABC", email:"test@test.com")
-      user.save
-      @Pout += "ユーザを登録しました。 Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
-      # render html: @Pout
-    end
+    @Pout += "ユーザを登録しました。 Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
+
+    
   end
 
   def result
@@ -111,5 +117,6 @@ class TeamMakerController < ApplicationController
     make_team
     redirect_to "/team_maker/result"
   end
+
 
 end

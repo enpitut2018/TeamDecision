@@ -2,26 +2,36 @@
 document.getElementById("subtitle").innerHTML = "ルーム"
 </script>
 <p align="center">
+<br>
 <b>ルーム名</b>　<%= session[:Rname] %><br>
 <b>入室コード</b>　<%= session[:Rchar] %>
 
   <br>
   <br>
- 
+
   <b>パラメータ</b>
-  
+
 <br>
-<% 
+<%
     output = "";
-    arr = Array.new
     par=Paramater.where(Rid: session[:rid])
-    len=par.length
+
     par.each {|par0|
       output = output+"パラメータ名："
       output = output+ par0[:Pname]
       output = output+"　　選択肢の数："
       output = output+ par0[:format].to_s
       output = output+ "<br>"
+    }
+%>
+<%
+
+    output2 = "";
+    usr=User.where(Rid:1)
+    usr.each {|usr0|
+      output2 = output2+"user名："
+      output2 = output2+ usr0[:name].to_s
+      output2 = output2+ "<br>"
     }
 %>
 <%=
@@ -31,7 +41,10 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 <%= link_to "追加", {:action => "AddParams"},{class: "BlueButton"}%>
 
 <br>
+<%=
+    output2.html_safe
+%>
+
 <label>チーム数: <input type="number" name="number" min="2"></label>
 <%= link_to "チームに分ける", {:action => "divideIntoTeams"}, {class: "RedButton"} %>
-
 </p>

@@ -43,15 +43,25 @@ class TeamMakerController < ApplicationController
   def join
     #ユーザーテーブルにinsert
     @Pout = "" # brank
-    room = Room.find_by(Rchar:params[:join_room][:Rchar])
-    if room != nil then
-      user = User.new(Rid:room[:id], name:params[:join_room][:name], email:params[:join_room][:email])
-      user.save
-      @Pout += "ユーザを登録しました Your id = #{user.id}, Rid=#{user.Rid}, Rname=#{room.Rname}"
+    @Uid = session[:Uid]
+    if @Uid =~ /^[0-9]+$/ then
+      @Pout += "Done"
     else
-      @Pout+="入室コードが間違っています<br/><a href='join'>再入力</a>"#"URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"
+      @Rid = params[:Rid]
+      if @Rid =~ /^[0-9]+$/ then
+        # @Pout += "int"
+      else
+        @Pout += "【警告！】URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。<br>
+        Rid=1であるものとして処理を継続します。<br>
+        <br>
+        "
+        @Rid = 1
+      end
+      user = User.new(Rid:@Rid, name:"ABC", email:"test@test.com")
+      user.save
+      @Pout += "ユーザを登録しました。 Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
+      # render html: @Pout
     end
-    # render html: @Pout
   end
 
   def result

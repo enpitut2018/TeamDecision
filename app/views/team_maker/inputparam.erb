@@ -6,7 +6,7 @@ document.getElementById("subtitle").innerHTML = "回答入力"
 <%=
 para = 5
 pid = @param[:pid] 
-para =Paramater.find_by(id:pid)[:Pname]
+para =Paramater.find_by(id:pid)[:format]
 %>
 </p>
 <%= form_for @answer ,:url => {:action => :SetParam}  do |form| %>

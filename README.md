@@ -1,24 +1,19 @@
-# README
+# アプリが決定します
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## これは何？
 
-Things you may want to cover:
+バランスのいいチームに分けるアプリ。
 
-* Ruby version
+チーム分けをする時、パッと分けたいけれど、以下のような困りごとありませんか？
 
-* System dependencies
+- チーム毎にスキルレベルの差異が大きい
+- チーム毎にやる気が全然違う
+- チームづくりのための話し合いに時間がかかる
 
-* Configuration
+そんな時は、このアプリを使えば解決。
+チームわけ参加者に、スキルレベルややる気を入力してもらって、チーム作成。
+これで完了です。
 
-* Database creation
+## 使いたいんだけど
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<https://enpit2018-team-maker.herokuapp.com>にアクセス

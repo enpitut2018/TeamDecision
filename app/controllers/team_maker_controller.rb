@@ -67,7 +67,7 @@ class TeamMakerController < ApplicationController
     end
   
     #ユーザーテーブルにinsert
-    @Pout = "" # brank
+    @Pout = "<p align='center'>" # brank
     #@Pout += "Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
     par=Paramater.where(Rid: session[:u_rid])
     par.each {|par0|
@@ -75,6 +75,7 @@ class TeamMakerController < ApplicationController
       @Pout += par0[:Pname].to_s
       @Pout += "</a><br>"
     }
+    @Pout += </p>
    
     
   end

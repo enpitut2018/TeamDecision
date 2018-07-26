@@ -83,10 +83,16 @@ class TeamMakerController < ApplicationController
   end
 
   def make_team
-    # 分けたいチームの数（分割数）
+    decide_num_of_members = false
+    # 分けたいチームの数（分割数）/1チームあたりの人数
     teamNum = 3
+
     #チーム分け対象
     users = User.all
+
+    if decide_num_of_members do
+      teamNum = users.length/teamNum
+    end
 
     slice = users.length.to_f / teamNum
     for i in 0..(teamNum-1) do

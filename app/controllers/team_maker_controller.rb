@@ -61,43 +61,38 @@ class TeamMakerController < ApplicationController
       
       # メールアドレスの存在可能性検証（処理の定義）
       require 'resolv'
+      require 'net/smtp'
       extend ActiveSupport::Concern
       @MY_DOMAIN = 'sv.teammaker.gv.vc'.freeze
-      @TIMEOUT = 20
+      @PORT = 25
       def mail_check(addr)
-        domain = addr.split('@')[1]
-        return { exist: false, valid: true, message: 'SMTP Server Not Found' } unless get_exchange(domain)
-        begin
-          addrs_exist?(get_exchange(domain), addr)
-        rescue
-          return { exist: false, valid: true, message: "Unknown Error.(Maybe #{@addr} Does Not Exists.)" }
-        end
+        domain = addr.split('@').last
+        return { email: addr, domain: false, message: 'domain does not found.' } unless get_exchange(domain)
+        addrs_exist?(get_exchange(domain), addr)
+      rescue # 送信先メールアドレスが存在しない場合、例外処理へ
+        { email: addr, domain: false, result: "#{addr} does not exist." }
       end
       def get_exchange(domain)
-        begin
-          @mx = Resolv::DNS.new.getresource(domain, Resolv::DNS::Resource::IN::MX)
-        rescue
-          return nil
-        end
-        @mx.exchange.to_s
+        mx = Resolv::DNS.new.getresource(domain, Resolv::DNS::Resource::IN::MX)
+        mx.exchange.to_s
+      rescue
+        nil
       end
       def addrs_exist?(domain, addr)
-        @MC_status = ''
-        pop = Net::Telnet.new('Host' => domain, 'Port' => 25, 'Timeout' => @TIMEOUT, 'Prompt' => /^(2\d{2}|5\d{2})/)
-        pop.cmd("helo #{@MY_DOMAIN}")
-        pop.cmd("mail from:<#{mail_address}>")  #mail_addressには送信元のメールアドレスを入れる
-        pop.cmd("rcpt to:<#{addr}>") { |c| @MC_status << c }
-        pop.cmd('String' => 'quit')
-        @MC_status =~ /^250/ ? true : false
+        Net::SMTP.start(domain, @PORT, @MY_DOMAIN) do |smtp|
+          smtp.mailfrom("service@sv.teammaker.gv.vc")
+          res = smtp.rcptto(addr).string.chomp
+          { email: addr, domain: true, result: res }
+        end
       end
 
       @email = params[:join_room][:email]
 
       # メールアドレスの存在可能性検証（確認実行）
-      mail_check( @email )
+      # mail_check( @email )[domain]
 
       # @Pout += @email
-      if @MC_status then
+      if mail_check(@email)[:domain] then
         # メールアドレスが正しい場合
         rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
         #ユーザーテーブルにinsert

@@ -68,8 +68,14 @@ class TeamMakerController < ApplicationController
   
     #ユーザーテーブルにinsert
     @Pout = "" # brank
-    @Pout += "ユーザを登録しました。 Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
-
+    #@Pout += "Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
+    par=Paramater.where(Rid: session[:u_rid])
+    par.each {|par0|
+      @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
+      @Pout += par0[:Pname].to_s
+      @Pout += "</a><br>"
+    }
+   
     
   end
 
@@ -117,6 +123,25 @@ class TeamMakerController < ApplicationController
   def divideIntoTeams
     make_team
     redirect_to "/team_maker/result"
+  end
+
+  def InputParam
+    
+    @answer = Answer.new
+    @param = params
+    render("inputparam")
+  end
+
+  def SetParam
+    if Answer.find_by(Pid:params[:answer][:pid],Uid:session[:uid])!=nil then 
+      Answer.find_by(Pid:params[:answer][:pid],Uid:session[:uid]).delete
+    end
+    @answer = Answer.new
+    @answer.answer = params[:answer][:answer]
+    @answer.Pid = params[:answer][:pid]
+    @answer.Uid = session[:uid]
+    @answer.save
+    redirect_to "/team_maker/join"
   end
 
 

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   get 'team_maker/join', to:"team_maker#input_Rchar"
 
+  post 'team_maker/inputparam', to:"team_maker#SetParam"
+
+  get 'team_maker/inputparam', to:"team_maker#InputParam"
+
   post 'team_maker/join', to:"team_maker#join"
 
   get 'team_maker/result'

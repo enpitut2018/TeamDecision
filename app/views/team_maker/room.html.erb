@@ -24,10 +24,11 @@ document.getElementById("subtitle").innerHTML = "ルーム"
       output = output+ "<br>"
     }
 %>
+
 <%
 
     output2 = "";
-    usr=User.where(Rid:1)
+    usr=User.where(Rid:session[:rid])
     usr.each {|usr0|
       output2 = output2+"user名："
       output2 = output2+ usr0[:name].to_s
@@ -41,10 +42,18 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 <%= link_to "追加", {:action => "AddParams"},{class: "BlueButton"}%>
 
 <br>
+
+<b>現在のルーム内の人数</b>
+<br>
+<%=
+    usr.length
+%>
+<br>
+<b>ユーザーリスト</b><br>
 <%=
     output2.html_safe
 %>
-
+<br>
 <label>チーム数: <input type="number" name="number" min="2"></label>
 <%= link_to "チームに分ける", {:action => "divideIntoTeams"}, {class: "RedButton"} %>
 </p>

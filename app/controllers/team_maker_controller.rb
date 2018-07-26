@@ -54,10 +54,11 @@ class TeamMakerController < ApplicationController
     else
       r = Room.find_by(Rchar:params[:join_room][:Rchar])
       if r != nil then 
-        rid = r[:id]
+        
       else
         #部屋コードが不正な場合ここに来る
       end
+      rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
       user = User.new(Rid:rid, name:params[:join_room][:name], email:params[:join_room][:email])
       user.save
       session[:uid] = user.id;

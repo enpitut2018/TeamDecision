@@ -21,6 +21,6 @@ Rails.application.routes.draw do
 
   get 'team_maker/room'
 
-  get 'team_maker/divideIntoTeams', to:"team_maker#divideIntoTeams"
+  post 'team_maker/divideIntoTeams', to:"team_maker#divideIntoTeams"
 
 end

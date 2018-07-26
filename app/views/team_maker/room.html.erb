@@ -54,6 +54,11 @@ document.getElementById("subtitle").innerHTML = "ルーム"
     output2.html_safe
 %>
 <br>
-<label>チーム数: <input type="number" name="number" min="2"></label>
-<%= link_to "チームに分ける", {:action => "divideIntoTeams"}, {class: "RedButton"} %>
+<%= form_tag("divideIntoTeams/", method: "post") do %>
+  <%= label_tag(:q, "チーム数:") %>
+  <%= number_field_tag(:teamNum, 2, min: 2) %>
+  <%= submit_tag("チームに分ける") %>
+  <br>
+<% end %>
+
 </p>

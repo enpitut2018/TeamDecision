@@ -7,7 +7,7 @@ class TeamMakerController < ApplicationController
     @room = Room.new
     @room.Rname = params[:room][:Rname]
     @room.Rchar = make_Rchar
-    
+
     if @room.save
       @result = true
     else
@@ -44,7 +44,7 @@ class TeamMakerController < ApplicationController
       user.save
       @Pout += "ユーザを登録しました Your id = #{user.id}, Rid=#{user.Rid}"
     else
-      @Pout += "URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"      
+      @Pout += "URLパラメータが不正です。JOINにはRidの指定が必要で、これはURL”!URL!”に対して、”!URL!?Rid=xx”（XXはint）とすることで与えることができます。"
     end
     # render html: @Pout
   end
@@ -75,6 +75,16 @@ class TeamMakerController < ApplicationController
       @result = false
     end
   end
-  
 
+  def make_team
+    teamNum = 4
+    for i in users.each_slice(users.length / teamNum) do
+      team = Team.create(Rid:1)
+      i.each {|t|
+        t.Tid = team.id
+      }
+    end
+  end
+
+  
 end

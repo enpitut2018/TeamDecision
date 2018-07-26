@@ -58,7 +58,6 @@ class TeamMakerController < ApplicationController
       else
         #部屋コードが不正な場合ここに来る
       end
-      
       # メールアドレスの存在可能性検証（処理の定義）
       require 'resolv'
       require 'net/smtp'
@@ -84,15 +83,9 @@ class TeamMakerController < ApplicationController
           res = smtp.rcptto(addr).string.chomp
           { email: addr, domain: true, result: res }
         end
-      end
-
+      end #メールアドレス検証関数ここまで
       @email = params[:join_room][:email]
-
-      # メールアドレスの存在可能性検証（確認実行）
-      # mail_check( @email )[domain]
-
-      # @Pout += @email
-      if mail_check(@email)[:domain] then
+      if mail_check(@email)[:domain] then #メールアドレスを検証
         # メールアドレスが正しい場合
         rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
         #ユーザーテーブルにinsert
@@ -101,7 +94,6 @@ class TeamMakerController < ApplicationController
         session[:uid] = user.id;
         session[:u_rid] = user.Rid;
         @Pout += "ルームに参加しました<br>\n<br>\n"
-        #@Pout += "Yourid=#{user.id}, ルームID=#{user.Rid}（ルームIDはデバッグ用であり、本来は表示するべきではない）"
       else
         @Pout += "メールアドレスの検証に失敗しました。<br>
         正しいメールアドレスを入力しているか、今一度ご確認ください。"

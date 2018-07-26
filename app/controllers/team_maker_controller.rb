@@ -16,6 +16,7 @@ class TeamMakerController < ApplicationController
     session[:rid]=@room.id
     session[:Rname]=@room.Rname
     session[:Rchar]=@room.Rchar
+    redirect_to "/team_maker/room"
   end
 
   def make_Rchar
@@ -33,7 +34,7 @@ class TeamMakerController < ApplicationController
 
   def create_room
     @room = Room.new
-    @room.Rname = "ルーム名"
+    @room.Rname = ""
   end
 
   def input_Rchar

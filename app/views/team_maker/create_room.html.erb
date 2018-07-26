@@ -4,7 +4,7 @@ document.getElementById("subtitle").innerHTML = "ルーム作成"
 <br>
 <span style="text-align:center">
 <%= form_for @room, html: {class:"form-horizontal"},:url => {} do |f| %>
-  <%= f.label :Rname, "Room name" %>
+  <%= f.label :Rname, "ルーム名" %>
   <%= f.text_field :Rname %>
   <br>
   <br>

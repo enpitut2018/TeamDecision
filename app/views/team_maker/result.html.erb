@@ -1,17 +1,20 @@
 <script>
 document.getElementById("subtitle").innerHTML = "グループ分け結果"
 </script>
-<p>あなたはグループ１です</p>
 <table>
   <tr>
     <th>Team id</th>
     <th>User id</th>
+    <th>Name</th>
+    <th>Email</th>
   </tr>
 
-  <% User.all.each do |u| %>
+  <% User.where(Rid: session[:rid]).each do |u| %>
     <tr>
       <td><%= u.Tid %></td>
       <td><%= u.id %></td>
+      <td><%= u.name %></td>
+      <td><%= u.email %></td>
     </tr>
   <% end %>
 </table>

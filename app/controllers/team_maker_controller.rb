@@ -105,7 +105,8 @@ class TeamMakerController < ApplicationController
   #teamNum: 分けたいチームの数（分割数）
   #rid: ルームid
   def make_team(teamNum, rid)
-    for i in User.all.each_slice(User.all.length / teamNum) do
+    us = User.where(Rid: session[:rid])
+    for i in us.each_slice((us.length + us.length.modulo(teamNum)) / teamNum) do
       team = Team.create(Rid:rid)
       i.each {|u|
         u.Tid = team.id
@@ -118,6 +119,5 @@ class TeamMakerController < ApplicationController
     make_team params[:teamNum].to_i, session[:rid]
     redirect_to "/team_maker/result"
   end
-
 
 end

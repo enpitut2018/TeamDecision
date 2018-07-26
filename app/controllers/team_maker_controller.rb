@@ -90,6 +90,7 @@ class TeamMakerController < ApplicationController
     else
       @result = false
     end
+    redirect_to "/team_maker/room"
   end
 
   def make_team

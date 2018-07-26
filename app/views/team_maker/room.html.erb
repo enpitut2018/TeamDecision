@@ -1,21 +1,33 @@
 <script>
 document.getElementById("subtitle").innerHTML = "ルーム"
 </script>
-<span style="text-align:center">
-<table>
-  <tr>
-    <th>Rname</th><td><%= session[:Rname] %></td>
-  </tr>
-  <tr>
-    <th>Rchar</th><td><%= session[:Rchar] %></td>
-  </tr>
+<p align="center">
+<b>ルーム名</b>　<%= session[:Rname] %><br>
+<b>入室コード</b>　<%= session[:Rchar] %>
 
-</table>
-パラメータ
+  <br>
+  <br>
+ 
+  <b>パラメータ</b>
+  
 <br>
-<%= 
-    Paramater.where(Rid: session[:rid])
+<% 
+    output = "";
+    arr = Array.new
+    par=Paramater.where(Rid: session[:rid])
+    len=par.length
+    par.each {|par0|
+      output = output+"パラメータ名："
+      output = output+ par0[:Pname]
+      output = output+"　　選択肢の数："
+      output = output+ par0[:format].to_s
+      output = output+ "<br>"
+    }
 %>
-<%= link_to "新規作成", {:action => "AddParams"},{class: "BlueButton"}%>
-</span>
+<%=
+    output.html_safe
+%>
+<br>
+<%= link_to "追加", {:action => "AddParams"},{class: "BlueButton"}%>
 
+</p>

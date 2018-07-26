@@ -63,7 +63,7 @@ class TeamMakerController < ApplicationController
       require 'net/smtp'
       extend ActiveSupport::Concern
       @MY_DOMAIN = 'sv.teammaker.gv.vc'.freeze
-      @PORT = 25
+      @PORT = 25 #SMTPサーバーのポート番号、通常は「25」を指定。一般的なインターネット回線では25番あては使えないため、検証環境に注意。
       def mail_check(addr)
         domain = addr.split('@').last
         return { email: addr, domain: false, message: 'domain does not found.' } unless get_exchange(domain)

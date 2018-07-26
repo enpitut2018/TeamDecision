@@ -103,11 +103,22 @@ class TeamMakerController < ApplicationController
   end
 
   def make_team
-    # 分けたいチームの数（分割数）
-    teamNum = 2
-    for i in User.all.each_slice(User.all.length / teamNum) do
+    decide_num_of_members = false
+    # 分けたいチームの数（分割数）/1チームあたりの人数
+    teamNum = 3
+
+    #チーム分け対象
+    users = User.all
+
+    if decide_num_of_members
+      teamNum = users.length/teamNum
+    end
+
+    slice = users.length.to_f / teamNum
+    for i in 0..(teamNum-1) do
       team = Team.create(Rid:1)
-      i.each {|u|
+      index = slice*i
+      users[index.to_i..(index+slice-1).to_i].each {|u|
         u.Tid = team.id
         u.save
       }

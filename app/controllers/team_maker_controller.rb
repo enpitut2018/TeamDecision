@@ -7,13 +7,15 @@ class TeamMakerController < ApplicationController
     @room = Room.new
     @room.Rname = params[:room][:Rname]
     @room.Rchar = make_Rchar
-    
+
     if @room.save
       @result = true
     else
       @result = false
     end
     session[:rid]=@room.id
+    session[:Rname]=@room.Rname
+    session[:Rchar]=@room.Rchar
   end
 
   def make_Rchar
@@ -32,6 +34,10 @@ class TeamMakerController < ApplicationController
   def create_room
     @room = Room.new
     @room.Rname = "ルーム名"
+  end
+
+  def input_Rchar
+    @room = Join_room.new
   end
 
   def join
@@ -59,6 +65,7 @@ class TeamMakerController < ApplicationController
   end
 
   def result
+    make_team
   end
 
   def show_rooms
@@ -84,6 +91,18 @@ class TeamMakerController < ApplicationController
       @result = false
     end
   end
-  
+
+  def make_team
+    # 分けたいチームの数（分割数）
+    teamNum = 2
+    for i in User.all.each_slice(User.all.length / teamNum) do
+      team = Team.create(Rid:1)
+      i.each {|u|
+        u.Tid = team.id
+        u.save
+      }
+    end
+  end
+
 
 end

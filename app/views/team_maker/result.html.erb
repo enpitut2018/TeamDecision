@@ -9,9 +9,15 @@ document.getElementById("subtitle").innerHTML = "グループ分け結果"
     <th>Email</th>
   </tr>
 
-  <% User.where(Rid: session[:u_rid]).each do |u| %>
+  <% l=[]
+  User.where(Rid: session[:u_rid]).each do |u|
+    index = l.find_index(u.Tid)
+    if index ==nil then
+      index=l.length
+      l.append(u.Tid)
+    end %>
     <tr>
-      <td><%= u.Tid %></td>
+      <td><%= index+1 %></td>
       <td><%= u.id %></td>
       <td><%= u.name %></td>
       <td><%= u.email %></td>

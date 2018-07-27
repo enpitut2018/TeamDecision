@@ -120,7 +120,12 @@ class TeamMakerController < ApplicationController
       -2=>"そう思わない",
       -3=>"未回答"
     }
-    @paramaters = Paramater.where(Rid: session[:u_rid]).map{|p| {id:p[:id], Pname:p[:Pname]}}
+    @id = session[:u_rid]
+    if @id == nil then
+      @id = session[:rid]
+    end
+
+    @paramaters = Paramater.where(Rid: @id).map{|p| {id:p[:id], Pname:p[:Pname]}}
   end
 
   def show_rooms

@@ -1,21 +1,17 @@
 <script>
-document.getElementById("subtitle").innerHTML = "ルーム"
+document.getElementById("subtitle").innerHTML = "ルーム管理"
 </script>
 <p align="center">
 <br>
 <b>ルーム名</b>　<%= session[:Rname] %><br>
 <b>入室コード</b>　<%= session[:Rchar] %>
-
   <br>
   <br>
-
   <b>パラメータ</b>
-
 <br>
 <%
     output = "";
     par=Paramater.where(Rid: session[:rid])
-
     par.each {|par0|
       output = output+"パラメータ名："
       output = output+ par0[:Pname]
@@ -26,7 +22,6 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 %>
 
 <%
-
     output2 = "";
     usr=User.where(Rid:session[:rid])
     usr.each {|usr0|
@@ -53,6 +48,12 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 <%=
     output2.html_safe
 %>
+<br>
+<%= form_tag("roomAdminJoin/", method: "post") do %>
+  <%= label_tag(:q, "ルーム管理キー:") %>
+  <%= text_field_tag "RadminKey", session[:RadminKey] %>
+  <%= submit_tag("管理対象ルームを切り替え") %><br />
+<% end %>
 <br>
 <%= form_tag("divideIntoTeams/", method: "post") do %>
   <%= label_tag(:q, "チーム数:") %>

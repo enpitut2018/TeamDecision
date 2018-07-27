@@ -1,5 +1,5 @@
 <script>
-document.getElementById("subtitle").innerHTML = "ルーム"
+document.getElementById("subtitle").innerHTML = "ルーム管理"
 </script>
 <p align="center">
 <br>
@@ -26,7 +26,6 @@ document.getElementById("subtitle").innerHTML = "ルーム"
 %>
 
 <%
-
     output2 = "";
     usr=User.where(Rid:session[:rid])
     usr.each {|usr0|

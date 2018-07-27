@@ -141,7 +141,7 @@ class TeamMakerController < ApplicationController
       end
       @Pout += '<tr><td>'
       @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
-      @Pout += ActionController::Base.helpers.strip_tags(par0[:Pname].to_s)
+      @Pout += ERB::Util.html_escape(par0[:Pname].to_s)
       @Pout += "</a></td><td>"+out+"</td><td>"+out2.to_s+"</td></tr></a><br>"
 
     }

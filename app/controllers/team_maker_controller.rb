@@ -111,6 +111,15 @@ class TeamMakerController < ApplicationController
   end
 
   def result
+    @a2s = {
+      2=>"そう思う",
+      1=>"どちらかというとそう思う",
+      0=>"どちらとも言えない",
+      -1=>"あまり思わない",
+      -2=>"そう思わない",
+      -3=>"未回答"
+    }
+    @paramaters = Paramater.where(Rid: session[:u_rid]).map{|p| {id:p[:id], Pname:p[:Pname]}}
   end
 
   def show_rooms

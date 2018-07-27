@@ -54,7 +54,7 @@ document.getElementById("subtitle").innerHTML = "ルーム"
     output2.html_safe
 %>
 <br>
-<%= form_tag("divideIntoTeams/", method: "post") do %>
+<%= form_tag("divideIntoTeams/", method: "post",align:"center") do %>
   <%= label_tag(:q, "チーム数:") %>
   <%= number_field_tag(:teamNum, 2, min: 2,max:usr.length,style:"width:200px") %>
   <%= submit_tag("チームに分ける") %>

@@ -99,19 +99,36 @@ class TeamMakerController < ApplicationController
         正しいメールアドレスを入力しているか、今一度ご確認ください。"
       end
     end
+    @a2s = {
+      2=>"そう思う",
+      1=>"どちらかというとそう思う",
+      0=>"どちらとも言えない",
+      -1=>"あまり思わない",
+      -2=>"そう思わない",
+      -3=>"未回答"
+    }
     par=Paramater.where(Rid: session[:u_rid])
     @Pout += '<table class="table table-hover">
     <tr>
         <th>パラメータ名</th>
         <th>回答の状況</th>
+        <th>回答</th>
     </tr>
     '
     par.each {|par0|
-     
+      @tmp = Answer.find_by(Pid:par0[:id],Uid:session[:uid])
+      if @tmp!=nil then
+        out = "<font color='green'>回答済み</font>"
+        out2 = @a2s[@tmp.answer]
+      else
+        out = "<font color='red'>未回答</font>"
+        out2 = "ー"
+      end
       @Pout += '<tr><td>'
       @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
       @Pout += ActionController::Base.helpers.strip_tags(par0[:Pname].to_s)
-      @Pout += "</a></td><td>回答済み</td></tr></a><br>"
+      @Pout += "</a></td><td>"+out+"</td><td>"+out2.to_s+"</td></tr></a><br>"
+
     }
     @Pout += '</table>'
     # 画面表示を生成

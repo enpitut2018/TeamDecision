@@ -117,7 +117,7 @@ class TeamMakerController < ApplicationController
         if r==nil then
           @Pout += "入室コードの検証に失敗しました。<br>
           正しい入室コードを入力しているか、今一度ご確認ください。"
-          flg = false
+          flg0 = false
         else
           rid = r[:id]
           #ユーザーテーブルにinsert

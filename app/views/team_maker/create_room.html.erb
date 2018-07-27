@@ -12,10 +12,10 @@ document.getElementById("subtitle").innerHTML = "ルーム作成"
 <% end %>
 <br />
 <br />
-管理キーを入力すると既存のグループを管理できます<br />
-<%= form_tag("roomAdminJoin/", method: "post") do %>
+<p align="center">管理キーを入力すると既存のグループを管理できます<br /></center>
+<%= form_tag("roomAdminJoin/", method: "post" ,align:"center") do %>
   <%= label_tag(:q, "ルーム管理キー:") %>
-  <%= text_field_tag "RadminKey", "" %>
-  <%= submit_tag("管理対象ルームを切り替え") %><br />
+  <%= text_field_tag "RadminKey", "" %><br>
+  <%= submit_tag "管理対象ルームを切り替え",:class => "RedButton" %><br />
 <% end %>
 </span>

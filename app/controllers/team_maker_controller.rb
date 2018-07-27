@@ -1,5 +1,6 @@
 class TeamMakerController < ApplicationController
   protect_from_forgery except: :newparam
+  protect_from_forgery except: :roomAdminJoin
   def home
   end
 

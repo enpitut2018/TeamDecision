@@ -50,7 +50,7 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
 %>
 <br>
 
-<%= form_tag("roomAdminJoin/", method: "post") do %>
+<%= form_tag("roomAdminJoin/", method: "post",align:"center") do %>
   <%= label_tag(:q, "ルーム管理キー:") %>
   <%= text_field_tag "RadminKey", session[:RadminKey] %>
   <%= submit_tag("管理対象ルームを切り替え") %><br />

@@ -111,13 +111,21 @@ class TeamMakerController < ApplicationController
       end
       if @JnMCb then #メールアドレスを検証
         # メールアドレスが正しい場合
-        rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
-        #ユーザーテーブルにinsert
-        user = User.new(Rid:rid, name:params[:join_room][:name], email:@email)
-        user.save
-        session[:uid] = user.id;
-        session[:u_rid] = user.Rid;
-        @Pout += "ルームに参加しました<br>\n<br>\n"
+        r=Room.find_by(Rchar:params[:join_room][:Rchar])
+        if r==nil then
+          @Pout += "入室コードの検証に失敗しました。<br>
+          正しい入室コードを入力しているか、今一度ご確認ください。"
+
+        else
+          rid = r[:id]
+          #ユーザーテーブルにinsert
+          user = User.new(Rid:rid, name:params[:join_room][:name], email:@email)
+          user.save
+          session[:uid] = user.id;
+          session[:u_rid] = user.Rid;
+          @Pout += "ルームに参加しました<br>\n<br>\n"
+        end
+        
       else
         @Pout += "メールアドレスの検証に失敗しました。<br>
         正しいメールアドレスを入力しているか、今一度ご確認ください。"

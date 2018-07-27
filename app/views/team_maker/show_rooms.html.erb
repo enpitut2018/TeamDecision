@@ -5,5 +5,9 @@ document.getElementById("subtitle").innerHTML = "ルーム一覧"
   <tr>
     <th>Rname</th><th>Rchar</th>
   </tr>
-  <%= @rooms.html_safe %>
+  <% @rooms.each do |r| %>
+  <tr>
+    <td><%= r[0] %></td><td><%= r[1] %></td>
+  </tr>
+  <% end %>
 </table>

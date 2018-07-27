@@ -7,6 +7,7 @@ class TeamMakerController < ApplicationController
     @room = Room.new
     @room.Rname = params[:room][:Rname]
     @room.Rchar = make_Rchar
+    @room.RadminKey = make_RadminKey
 
     if @room.save
       @result = true
@@ -16,7 +17,21 @@ class TeamMakerController < ApplicationController
     session[:rid]=@room.id
     session[:Rname]=@room.Rname
     session[:Rchar]=@room.Rchar
+    session[:RadminKey]=@room.RadminKey
     redirect_to "/team_maker/room"
+  end
+
+  def make_RadminKey
+    def make_RadminKeySt
+      return (0...13).map{ ('a'..'z').to_a[rand(26)] }.join;
+    end
+    tmp = make_RadminKeySt
+    flg = Room.find_by(RadminKey:tmp)
+    while flg!=nil do
+      tmp = make_RadminKeySt
+      flg = Room.find_by(RadminKey:tmp)
+    end
+    return tmp
   end
 
   def make_Rchar
@@ -137,16 +152,26 @@ class TeamMakerController < ApplicationController
   end
 
   def result
+    @a2s = {
+      2=>"そう思う",
+      1=>"どちらかというとそう思う",
+      0=>"どちらとも言えない",
+      -1=>"あまり思わない",
+      -2=>"そう思わない",
+      -3=>"未回答"
+    }
+    @id = session[:u_rid]
+    if @id == nil then
+      @id = session[:rid]
+    end
+
+    @paramaters = Paramater.where(Rid: @id).map{|p| {id:p[:id], Pname:p[:Pname]}}
   end
 
   def show_rooms
-    @rooms = ''
+    @rooms = []
     for r in Room.all do
-      @rooms+='<tr><td>'
-      @rooms+=r.Rname
-      @rooms+='</td><td>'
-      @rooms+=r.Rchar
-      @rooms+='</td></tr>'
+      @rooms.append([r.Rname,r.Rchar])
     end
 
   end
@@ -181,9 +206,27 @@ class TeamMakerController < ApplicationController
     end
   end
 
+  def roomAdminJoin
+    @RadminKeyFromHttpRequest = params[:RadminKey]
+    @DBreturn=Room.find_by(RadminKey:@RadminKeyFromHttpRequest)
+    if @DBreturn!=nil then
+      session[:rid]=@DBreturn.id
+      session[:RadminKey]=@DBreturn.RadminKey
+      session[:Rname]=@DBreturn.Rname
+      session[:Rchar]=@DBreturn.Rchar
+    else
+      # redirect_to "/team_maker/result"
+    end
+    redirect_to "/team_maker/room"
+  end
+
   def divideIntoTeams
-    make_team params[:teamNum].to_i, session[:rid]
-    redirect_to "/team_maker/result"
+    if params[:teamNum].to_i<=User.where(Rid: session[:rid]).length && params[:teamNum].to_i>=0 then
+      make_team params[:teamNum].to_i, session[:rid]
+      redirect_to "/team_maker/result"
+    else
+      render html: "teamNumちゃんとやれ"
+    end
   end
 
 

@@ -7,10 +7,13 @@ document.getElementById("subtitle").innerHTML = "グループ分け結果"
     <th>User id</th>
     <th>Name</th>
     <th>Email</th>
+    <% @paramaters.each do |p| %>
+    <th><%= p[:Pname] %></th>
+    <% end %>
   </tr>
 
   <% l=[]
-  User.where(Rid: session[:u_rid]).each do |u|
+  User.where(Rid: @id).each do |u|
     index = l.find_index(u.Tid)
     if index ==nil then
       index=l.length
@@ -21,6 +24,14 @@ document.getElementById("subtitle").innerHTML = "グループ分け結果"
       <td><%= u.id %></td>
       <td><%= u.name %></td>
       <td><%= u.email %></td>
+      <% @paramaters.each do |p|
+        ans = Answer.find_by(Pid:p[:id],Uid:u.id)
+        tmp = "-3"
+        if ans != nil then
+          tmp = ans[:answer].to_s
+        end%>
+      <td><%= @a2s[tmp.to_i] %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

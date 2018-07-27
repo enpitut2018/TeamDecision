@@ -146,7 +146,7 @@ class TeamMakerController < ApplicationController
       par=Paramater.where(Rid: session[:u_rid])
       @Pout += '<table class="table table-hover" align="center">
       <tr>
-          <th>パラメータ名</th>
+          <th>質問</th>
           <th>回答の状況</th>
           <th>回答</th>
       </tr>

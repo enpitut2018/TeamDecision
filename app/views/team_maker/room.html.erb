@@ -7,13 +7,13 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
 <b>入室コード</b>　<%= session[:Rchar] %>
   <br>
   <br>
-  <b>パラメータ</b>
+  <b>質問一覧</b>
 <br>
 <%
     output = "";
     par=Paramater.where(Rid: session[:rid])
     par.each {|par0|
-      output = output+"パラメータ名："
+      output = output+"質問："
       output = output+ h(par0[:Pname])
       output = output+"　　選択肢の数："
       output = output+ par0[:format].to_s

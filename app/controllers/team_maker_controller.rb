@@ -156,8 +156,12 @@ class TeamMakerController < ApplicationController
   end
 
   def divideIntoTeams
-    make_team params[:teamNum].to_i, session[:rid]
-    redirect_to "/team_maker/result"
+    if params[:teamNum].to_i<=User.where(Rid: session[:rid]).length && params[:teamNum].to_i>=0 then
+      make_team params[:teamNum].to_i, session[:rid]
+      redirect_to "/team_maker/result"
+    else
+      render html: "teamNumちゃんとやれ"
+    end
   end
 
 

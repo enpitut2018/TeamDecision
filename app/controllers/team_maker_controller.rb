@@ -176,6 +176,9 @@ class TeamMakerController < ApplicationController
   end
     
   def room
+    if session[:rid]==nil then
+      redirect_to "/team_maker/create_room"
+    end
   end
     
   def show_rooms

@@ -14,7 +14,7 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
     par=Paramater.where(Rid: session[:rid])
     par.each {|par0|
       output = output+"パラメータ名："
-      output = output+ par0[:Pname]
+      output = output+ ActionController::Base.helpers.strip_tags(par0[:Pname])
       output = output+"　　選択肢の数："
       output = output+ par0[:format].to_s
       output = output+ "<br>"

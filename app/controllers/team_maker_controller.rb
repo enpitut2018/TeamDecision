@@ -143,9 +143,12 @@ class TeamMakerController < ApplicationController
   #rid: ルームid
   def make_team(teamNum, rid)
     us = User.where(Rid: session[:rid])
-    for i in us.each_slice((us.length + us.length.modulo(teamNum)) / teamNum) do
+
+    slice = us.length.to_f / teamNum
+    for i in 0..(teamNum-1) do
       team = Team.create(Rid:rid)
-      i.each {|u|
+      index = slice*i
+      us[index.to_i..(index+slice-1).to_i].each {|u|
         u.Tid = team.id
         u.save
       }
@@ -165,7 +168,7 @@ class TeamMakerController < ApplicationController
   end
 
   def SetParam
-    if Answer.find_by(Pid:params[:answer][:pid],Uid:session[:uid])!=nil then 
+    if Answer.find_by(Pid:params[:answer][:pid],Uid:session[:uid])!=nil then
       Answer.find_by(Pid:params[:answer][:pid],Uid:session[:uid]).delete
     end
     @answer = Answer.new

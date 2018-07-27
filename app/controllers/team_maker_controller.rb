@@ -5,6 +5,10 @@ class TeamMakerController < ApplicationController
   def home
   end
 
+  def redirectToRoot
+    redirect_to '../'
+  end
+
   def make
     @room = Room.new
     @room.Rname = params[:room][:Rname]

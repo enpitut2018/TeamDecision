@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'team_maker/home'
 
+  # get 'team_maker' to:"team_maker#redirectToRoot"
+
   post 'team_maker/create_room', to:"team_maker#make"
 
   post 'team_maker/newparam', to:"team_maker#newparam"

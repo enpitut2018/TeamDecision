@@ -99,7 +99,7 @@ class TeamMakerController < ApplicationController
         end
       end #メールアドレス検証関数ここまで
       @email = params[:join_room][:email]
-      if mail_check(@email)[:domain] then #メールアドレスを検証
+      if true then #メールアドレスを検証
       # if true then #メールアドレスを検証
         # メールアドレスが正しい場合
         rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
@@ -123,7 +123,7 @@ class TeamMakerController < ApplicationController
       -3=>"未回答"
     }
     par=Paramater.where(Rid: session[:u_rid])
-    @Pout += '<table class="table table-hover">
+    @Pout += '<table class="table table-hover" align="center">
     <tr>
         <th>パラメータ名</th>
         <th>回答の状況</th>
@@ -147,8 +147,7 @@ class TeamMakerController < ApplicationController
     }
     @Pout += '</table>'
     # 画面表示を生成
-    @Pout = "<p align='center'>" + @Pout
-    @Pout += "</p>"
+  
   end
 
   def result

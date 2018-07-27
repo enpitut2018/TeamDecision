@@ -2,7 +2,7 @@
 document.getElementById("subtitle").innerHTML = "回答入力"
 </script>
 
-<p style="text-align:center">
+<p align="center">
 <%=
 para = 5
 pid = @param[:pid] 
@@ -15,7 +15,7 @@ para =Paramater.find_by(id:pid)[:format]
 <%= form_for @answer ,:url => {:action => :SetParam}  do |form| %>
    
     <%= hidden_field_tag 'answer[pid]',@param[:pid] %>
-<table>
+<table align="center">
 <tr>
 
 　　<th>　そう思う　</th>
@@ -98,5 +98,5 @@ para =Paramater.find_by(id:pid)[:format]
 　</tr>
 
 </table><br>
-<%= form.submit "回答する", class: "BlueButton" %>
+<p align = "center"><%= form.submit "回答する", class: "BlueButton" %></p>
 <% end %>

@@ -47,8 +47,7 @@ class TeamMakerController < ApplicationController
   end
 
   def join
-    @Pout = ""
-    p TCPSocket.gethostbyname("www.yahoo.co.jp")
+    @Pout = ''
     puts params
     if session[:uid]!=nil && session[:u_rid]!=nil then
       user = User.find_by(id:session[:uid],Rid:session[:u_rid])
@@ -101,11 +100,20 @@ class TeamMakerController < ApplicationController
       end
     end
     par=Paramater.where(Rid: session[:u_rid])
+    @Pout += '<table class="table table-hover">
+    <tr>
+        <th>パラメータ名</th>
+        <th>回答の状況</th>
+    </tr>
+    '
     par.each {|par0|
+     
+      @Pout += '<tr><td>'
       @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
-      @Pout += par0[:Pname].to_s
-      @Pout += "</a><br>"
+      @Pout += ActionController::Base.helpers.strip_tags(par0[:Pname].to_s)
+      @Pout += "</a></td><td>回答済み</td></tr></a><br>"
     }
+    @Pout += '</table>'
     # 画面表示を生成
     @Pout = "<p align='center'>" + @Pout
     @Pout += "</p>"

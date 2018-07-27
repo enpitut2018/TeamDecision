@@ -52,8 +52,8 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
 
 <%= form_tag("roomAdminJoin/", method: "post",align:"center") do %>
   <%= label_tag(:q, "ルーム管理キー:") %>
-  <%= text_field_tag "RadminKey", session[:RadminKey] %>
-  <%= submit_tag("管理対象ルームを切り替え") %><br />
+  <%= text_field_tag "RadminKey", session[:RadminKey] %><br>
+  <%= submit_tag "管理対象ルームを切り替え",:class => "BlueButton" %><br />
 <% end %>
 <br> 
   
@@ -63,7 +63,7 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
 
   <%= label_tag(:q, "チーム数:") %>
   <%= number_field_tag(:teamNum, 2, min: 2,max:usr.length,style:"width:200px") %>
-  <%= submit_tag("チームに分ける") %>
+  <br><%= submit_tag"チームに分ける" ,:class => "BlueButton"%>
   <br>
 <% end %>
 

@@ -156,7 +156,7 @@ class TeamMakerController < ApplicationController
     }
     @Pout += '</table>'
     # 画面表示を生成
-  
+
   end
 
   def result
@@ -168,9 +168,10 @@ class TeamMakerController < ApplicationController
       -2=>"そう思わない",
       -3=>"未回答"
     }
-    @id = session[:u_rid]
-    if @id == nil then
+    if session[:flg] then
       @id = session[:rid]
+    else
+      @id = session[:u_rid]
     end
 
     @paramaters = Paramater.where(Rid: @id).map{|p| {id:p[:id], Pname:p[:Pname]}}
@@ -237,6 +238,7 @@ class TeamMakerController < ApplicationController
   def divideIntoTeams
     if params[:teamNum].to_i<=User.where(Rid: session[:rid]).length && params[:teamNum].to_i>=0 then
       make_team params[:teamNum].to_i, session[:rid]
+      session[:flg]=true
       redirect_to "/team_maker/result"
     else
       render html: "teamNumちゃんとやれ"

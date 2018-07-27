@@ -14,6 +14,7 @@ end
 <a class="BlueButton" href="/team_maker/<%= str2 %>">ルームを<%= str%></a>
 <a class="GreenButton" href="/team_maker/join">ルーム<%= str3%></a>
 <%= if session[:u_rid]!=nil then
+  session[:flg]=false
 '<a class="OrangeButton" href="/team_maker/result">グループ分け結果を表示</a>'.html_safe
 end
 %>

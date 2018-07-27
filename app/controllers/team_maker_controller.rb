@@ -6,7 +6,7 @@ class TeamMakerController < ApplicationController
   end
 
   def redirectToRoot
-    redirect_to '../'
+    redirect_to '/'
   end
 
   def make

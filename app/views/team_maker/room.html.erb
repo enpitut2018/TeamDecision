@@ -60,7 +60,6 @@ document.getElementById("subtitle").innerHTML = "ルーム管理"
 <%=form_tag("divideIntoTeams/", method: "post",align:"center") do %>
 
 
-<%= form_tag("divideIntoTeams/", method: "post") do %>
 
   <%= label_tag(:q, "チーム数:") %>
   <%= number_field_tag(:teamNum, 2, min: 2,max:usr.length,style:"width:200px") %>

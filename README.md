@@ -16,7 +16,7 @@
 
 ## 使いたいんだけど
 
-<https://enpit2018-team-maker.herokuapp.com>にアクセス
+<https://teammaker.gv.vc>にアクセス
 
 
 ## 使い方

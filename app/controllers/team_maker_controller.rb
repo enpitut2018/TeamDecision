@@ -174,7 +174,10 @@ class TeamMakerController < ApplicationController
 
     @paramaters = Paramater.where(Rid: @id).map{|p| {id:p[:id], Pname:p[:Pname]}}
   end
-
+    
+  def room
+  end
+    
   def show_rooms
     @rooms = []
     for r in Room.all do

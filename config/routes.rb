@@ -27,4 +27,6 @@ Rails.application.routes.draw do
 
   post 'team_maker/divideIntoTeams', to:"team_maker#divideIntoTeams"
 
+  post 'team_maker/roomAdminJoin', to:"team_maker#roomAdminJoin"
+
 end

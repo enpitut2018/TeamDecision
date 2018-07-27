@@ -7,6 +7,7 @@ class TeamMakerController < ApplicationController
     @room = Room.new
     @room.Rname = params[:room][:Rname]
     @room.Rchar = make_Rchar
+    @room.RadminKey = make_RadminKey
 
     if @room.save
       @result = true
@@ -16,7 +17,21 @@ class TeamMakerController < ApplicationController
     session[:rid]=@room.id
     session[:Rname]=@room.Rname
     session[:Rchar]=@room.Rchar
+    session[:RadminKey]=@room.RadminKey
     redirect_to "/team_maker/room"
+  end
+
+  def make_RadminKey
+    def make_RadminKeySt
+      return (0...13).map{ ('a'..'z').to_a[rand(26)] }.join;
+    end
+    tmp = make_RadminKeySt
+    flg = Room.find_by(RadminKey:tmp)
+    while flg!=nil do
+      tmp = make_RadminKeySt
+      flg = Room.find_by(RadminKey:tmp)
+    end
+    return tmp
   end
 
   def make_Rchar
@@ -153,6 +168,20 @@ class TeamMakerController < ApplicationController
         u.save
       }
     end
+  end
+
+  def roomAdminJoin
+    @RadminKeyFromHttpRequest = params[:RadminKey]
+    @DBreturn=Room.find_by(RadminKey:@RadminKeyFromHttpRequest)
+    if @DBreturn!=nil then
+      session[:rid]=@DBreturn.id
+      session[:RadminKey]=@DBreturn.RadminKey
+      session[:Rname]=@DBreturn.Rname
+      session[:Rchar]=@DBreturn.Rchar
+    else
+      # redirect_to "/team_maker/result"
+    end
+    redirect_to "/team_maker/room"
   end
 
   def divideIntoTeams

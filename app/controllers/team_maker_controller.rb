@@ -152,13 +152,9 @@ class TeamMakerController < ApplicationController
   end
 
   def show_rooms
-    @rooms = ''
+    @rooms = []
     for r in Room.all do
-      @rooms+='<tr><td>'
-      @rooms+=r.Rname
-      @rooms+='</td><td>'
-      @rooms+=r.Rchar
-      @rooms+='</td></tr>'
+      @rooms.append([r.Rname,r.Rchar])
     end
 
   end

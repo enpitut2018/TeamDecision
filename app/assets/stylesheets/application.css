@@ -14,6 +14,22 @@
  *= require_self
  */
 
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 .BlueButton {
     border: 0;
     background: #00aced;
@@ -70,9 +86,30 @@
     width: 270px;
     box-sizing: border-box
 }
+
+.OrangeButton {
+    border: 0;
+    background: #ffa500;
+    color: white;
+    padding: 11px 20px;
+    line-height: 18px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    text-decoration: none;
+    position: relative;
+    margin-bottom: 40px;
+    width: 270px;
+    box-sizing: border-box
+}
+
 .BlueButton:active,
 .GreenButton:active,
-.RedButton:active {
+.RedButton:active,
+.OrangeButton:active {
     background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))
 }

@@ -85,7 +85,8 @@ class TeamMakerController < ApplicationController
         end
       end #メールアドレス検証関数ここまで
       @email = params[:join_room][:email]
-      if mail_check(@email)[:domain] then #メールアドレスを検証
+      #if mail_check(@email)[:domain] then #メールアドレスを検証
+      if true then #メールアドレスを検証
         # メールアドレスが正しい場合
         rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
         #ユーザーテーブルにinsert

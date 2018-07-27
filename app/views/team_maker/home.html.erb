@@ -5,10 +5,16 @@ if session[:rid]!=nil then
     str = "管理"
     str2 = "room"
 end
-
+str3 = "に参加"
+if session[:u_rid]!=nil then
+    str3 = "を見る"
+end
 %>
 <div style = "text-align:center"><br>
 <a class="BlueButton" href="/team_maker/<%= str2 %>">ルームを<%= str%></a>
-<a class="GreenButton" href="/team_maker/join">ルームに参加</a>
-<a class="BlueButton" href="/team_maker/result">グループ分け結果を表示</a>
+<a class="GreenButton" href="/team_maker/join">ルーム<%= str3%></a>
+<%= if session[:u_rid]!=nil then
+'<a class="OrangeButton" href="/team_maker/result">グループ分け結果を表示</a>'.html_safe
+end
+%>
 </div>

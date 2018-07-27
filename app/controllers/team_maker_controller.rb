@@ -99,8 +99,16 @@ class TeamMakerController < ApplicationController
         end
       end #メールアドレス検証関数ここまで
       @email = params[:join_room][:email]
-      if true then #メールアドレスを検証
-      # if true then #メールアドレスを検証
+      @JnRemote_ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
+      if @JnRemote_ip=="127.0.0.1" then
+        @JnMCb = true
+        @Pout += "【警告！】メールアドレスの検証はローカル環境では無効化されました<br />
+        <br />
+        "
+      else
+        @JnMCb = mail_check(@email)[:domain]
+      end
+      if @JnMCb then #メールアドレスを検証
         # メールアドレスが正しい場合
         rid=Room.find_by(Rchar:params[:join_room][:Rchar])[:id]
         #ユーザーテーブルにinsert

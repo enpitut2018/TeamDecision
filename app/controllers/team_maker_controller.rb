@@ -142,7 +142,7 @@ class TeamMakerController < ApplicationController
   #teamNum: 分けたいチームの数（分割数）
   #rid: ルームid
   def make_team(teamNum, rid)
-    us = User.where(Rid: rid])
+    us = User.where(Rid: rid)
 
     slice = us.length.to_f / teamNum
     for i in 0..(teamNum-1) do

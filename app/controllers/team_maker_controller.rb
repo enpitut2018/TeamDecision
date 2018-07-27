@@ -64,6 +64,7 @@ class TeamMakerController < ApplicationController
   end
 
   def join
+    flg0 = true
     @Pout = ''
     puts params
     if session[:uid]!=nil && session[:u_rid]!=nil then
@@ -116,7 +117,7 @@ class TeamMakerController < ApplicationController
         if r==nil then
           @Pout += "入室コードの検証に失敗しました。<br>
           正しい入室コードを入力しているか、今一度ご確認ください。"
-
+          flg = false
         else
           rid = r[:id]
           #ユーザーテーブルにinsert
@@ -130,40 +131,43 @@ class TeamMakerController < ApplicationController
       else
         @Pout += "メールアドレスの検証に失敗しました。<br>
         正しいメールアドレスを入力しているか、今一度ご確認ください。"
+          flg0 = false
       end
     end
-    @a2s = {
-      2=>"そう思う",
-      1=>"どちらかというとそう思う",
-      0=>"どちらとも言えない",
-      -1=>"あまり思わない",
-      -2=>"そう思わない",
-      -3=>"未回答"
-    }
-    par=Paramater.where(Rid: session[:u_rid])
-    @Pout += '<table class="table table-hover" align="center">
-    <tr>
-        <th>パラメータ名</th>
-        <th>回答の状況</th>
-        <th>回答</th>
-    </tr>
-    '
-    par.each {|par0|
-      @tmp = Answer.find_by(Pid:par0[:id],Uid:session[:uid])
-      if @tmp!=nil then
-        out = "<font color='green'>回答済み</font>"
-        out2 = @a2s[@tmp.answer]
-      else
-        out = "<font color='red'>未回答</font>"
-        out2 = "ー"
-      end
-      @Pout += '<tr><td>'
-      @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
-      @Pout += ERB::Util.html_escape(par0[:Pname].to_s)
-      @Pout += "</a></td><td>"+out+"</td><td>"+out2.to_s+"</td></tr></a><br>"
+    if flg0 then
+      @a2s = {
+        2=>"そう思う",
+        1=>"どちらかというとそう思う",
+        0=>"どちらとも言えない",
+        -1=>"あまり思わない",
+        -2=>"そう思わない",
+        -3=>"未回答"
+      }
+      par=Paramater.where(Rid: session[:u_rid])
+      @Pout += '<table class="table table-hover" align="center">
+      <tr>
+          <th>パラメータ名</th>
+          <th>回答の状況</th>
+          <th>回答</th>
+      </tr>
+      '
+      par.each {|par0|
+        @tmp = Answer.find_by(Pid:par0[:id],Uid:session[:uid])
+        if @tmp!=nil then
+          out = "<font color='green'>回答済み</font>"
+          out2 = @a2s[@tmp.answer]
+        else
+          out = "<font color='red'>未回答</font>"
+          out2 = "ー"
+        end
+        @Pout += '<tr><td>'
+        @Pout += "<a href='/team_maker/inputparam?pid="+par0[:id].to_s+"'>"
+        @Pout += ERB::Util.html_escape(par0[:Pname].to_s)
+        @Pout += "</a></td><td>"+out+"</td><td>"+out2.to_s+"</td></tr></a><br>"
 
-    }
-    @Pout += '</table>'
+      }
+      @Pout += '</table>'
+    end
     # 画面表示を生成
 
   end

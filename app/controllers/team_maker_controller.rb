@@ -115,7 +115,7 @@ class TeamMakerController < ApplicationController
       else
         @JnMCb = mail_check(@email)[:domain]
       end
-      if @JnMCb then #メールアドレスを検証
+      if true then #メールアドレスを検証
         # メールアドレスが正しい場合
         r=Room.find_by(Rchar:params[:join_room][:Rchar])
         if r==nil then
@@ -225,17 +225,21 @@ class TeamMakerController < ApplicationController
   #teamNum: 分けたいチームの数（分割数）
   #rid: ルームid
   def make_team(teamNum, rid)
-    us = User.where(Rid: rid)
+    require 'make_team_solver'
 
-    slice = us.length.to_f / teamNum
-    for i in 0..(teamNum-1) do
+    par = Paramater.find_by(Rid:rid)
+    ans = Answer.where(Pid: par.id).order("answer DESC")
+    mts = MakeTeamSolver.new ans.map(&:answer), teamNum
+    mts.solve.each {|t|
       team = Team.create(Rid:rid)
-      index = slice*i
-      us[index.to_i..(index+slice-1).to_i].each {|u|
+      t.each_with_index.select {|x|
+        x[0] == 1
+      }.map(&:last).each {|i|
+        u = User.find(ans[i].Uid)
         u.Tid = team.id
         u.save
       }
-    end
+    }
   end
 
   def roomAdminJoin

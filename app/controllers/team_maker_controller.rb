@@ -115,7 +115,7 @@ class TeamMakerController < ApplicationController
       else
         @JnMCb = mail_check(@email)[:domain]
       end
-      if true then #メールアドレスを検証
+      if @JnMCb then #メールアドレスを検証
         # メールアドレスが正しい場合
         r=Room.find_by(Rchar:params[:join_room][:Rchar])
         if r==nil then

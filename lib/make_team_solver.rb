@@ -17,10 +17,10 @@ class MakeTeamSolver
         (team[i].sum - mean).abs
       }.reverse.each {|i|
         return ut if ut.all?
-        u = ut.each_with_index.select {|j|
-          j.include? nil
-        }.min_by {|j|
-          (team[i].sum + @p[j[1]] - mean).abs
+        u = ut.each_with_index.select {|j,k|
+          j.nil?
+        }.min_by {|j,k|
+          (team[i].sum + @p[k] - mean).abs
         }
         ut[u[1]] = i
         team[i] << @p[u[1]]

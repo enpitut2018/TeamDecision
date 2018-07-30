@@ -227,18 +227,15 @@ class TeamMakerController < ApplicationController
   def make_team(teamNum, rid)
     require 'make_team_solver'
 
-    par = Paramater.find_by(Rid:rid)
-    ans = Answer.where(Pid: par.id).order("answer DESC")
-    mts = MakeTeamSolver.new ans.map(&:answer), teamNum
-    mts.solve.each {|t|
-      team = Team.create(Rid:rid)
-      t.each_with_index.select {|x|
-        x[0] == 1
-      }.map(&:last).each {|i|
-        u = User.find(ans[i].Uid)
-        u.Tid = team.id
-        u.save
-      }
+    ans = Answer.where(Pid: Paramater.find_by(Rid:rid).id)
+    teams = []
+    teamNum.times {
+      teams << Team.create(Rid:rid)
+    }
+    (MakeTeamSolver.new ans.map(&:answer), teamNum).solve.each_with_index {|i,j|
+      u = User.find ans[j].Uid
+      u.Tid = teams[i].id
+      u.save
     }
   end
 
